@@ -347,23 +347,29 @@
             { type: 'phone', emoji: '📱', color: '#2196F3', shape: 'square', points: -20, message: '摸鱼被抓！', messageColor: '#F44336', shake: true }
         ];
 
+        function updateBrainPosition(clientX) {
+            const minX = brain.radius;
+            const maxX = canvas.width - brain.radius;
+            brain.x = Math.max(minX, Math.min(maxX, clientX));
+        }
+
         canvas.addEventListener('mousemove', (e) => {
             if (gameRunning) {
-                brain.x = e.clientX;
+                updateBrainPosition(e.clientX);
             }
         });
 
         canvas.addEventListener('touchstart', (e) => {
             e.preventDefault();
-            if (gameRunning) {
-                brain.x = e.touches[0].clientX;
+            if (gameRunning && e.touches.length > 0) {
+                updateBrainPosition(e.touches[0].clientX);
             }
         }, { passive: false });
 
         canvas.addEventListener('touchmove', (e) => {
             e.preventDefault();
-            if (gameRunning) {
-                brain.x = e.touches[0].clientX;
+            if (gameRunning && e.touches.length > 0) {
+                updateBrainPosition(e.touches[0].clientX);
             }
         }, { passive: false });
 
