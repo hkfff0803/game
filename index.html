@@ -353,6 +353,20 @@
             }
         });
 
+        canvas.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            if (gameRunning) {
+                brain.x = e.touches[0].clientX;
+            }
+        }, { passive: false });
+
+        canvas.addEventListener('touchmove', (e) => {
+            e.preventDefault();
+            if (gameRunning) {
+                brain.x = e.touches[0].clientX;
+            }
+        }, { passive: false });
+
         function spawnItem() {
             const typeIndex = Math.random() < 0.4 ? 0 : Math.floor(Math.random() * itemTypes.length);
             const type = itemTypes[typeIndex];
